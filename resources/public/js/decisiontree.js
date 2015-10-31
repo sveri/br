@@ -1,5 +1,22 @@
+var t = transit;
+
+function ednToJson(x) {
+  var r = t.reader("json");
+  return r.read(x);
+}
+
+function ednArrayToString(edn){
+    var ednString = "[";
+    for (i=0;i<edn.length;i++)
+    {
+        ednString = ednString + '"' + edn[i] + '",';;
+    }
+    ednString = ednString.substring(0, ednString.length - 1);
+    return ednString + "]";
+}
+
 d3.json("/rp/decision-tree/tree-id", function(treeData) {
-    console.log(treeData);
+    console.log(ednToJson(ednArrayToString(treeData)));
 });
 
 
