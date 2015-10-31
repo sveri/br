@@ -9,6 +9,7 @@
             [com.stuartsierra.component :as comp]
             [de.sveri.br.routes.home :refer [home-routes]]
             [de.sveri.br.routes.cc :refer [cc-routes]]
+            [de.sveri.br.routes.ruleproject :refer [rp-routes]]
             [de.sveri.br.routes.user :refer [user-routes registration-routes]]
             [de.sveri.br.middleware :refer [load-middleware]]))
 
@@ -32,7 +33,7 @@
   (-> (app-handler
         (into [] (concat (when (:registration-allowed? config) [(registration-routes config)])
                          ;; add your application routes here
-                         [(cc-routes config) home-routes (user-routes config) base-routes]))
+                         [(rp-routes config) (cc-routes config) home-routes (user-routes config) base-routes]))
         ;; add custom middleware here
         :middleware (load-middleware config (:tconfig locale))
         :ring-defaults (mk-defaults false)
